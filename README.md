@@ -1,1 +1,1 @@
-An weather app using openweathermap api (Just practic =]] ).
+An easy weather app using openweathermap api (Just practic =]] ).
