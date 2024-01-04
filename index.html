@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App Practice</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter City Name" spellcheck="false">
+            <button><img src="./full-m2i8i8m2G6d3G6b1.png"></button>
+        </div>
+        <div class="error">
+            <p>Invalid City Name</p>
+        </div>
+        <div class="weather">
+            <img src="./weather_icons_dovora_interactive/PNG/512/day_partial_cloud.png" class="weather-icon">
+            <h1 class="Temp">21&deg;C</h1>
+            <h2 class="City_name">Hanoi</h2>
+            <h3 class="condition">Clear</h3>
+            <div class="detail">
+                <div class="col">
+                    <img src="./weather_icons_dovora_interactive/PNG/512/humicon.png">
+                    <p class="hum">50% <br> <span class="label1">Humidity</span></p>
+                </div>
+                <div class="col">
+                    <img src="./weather_icons_dovora_interactive/PNG/512/windicon.png">
+                    <p class="wind">50km/h <br> <span class="label1">Wind Speed</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "2cd78f13e83c9f7fccee1fee5d326d31";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=vi&q=";
+
+        const search = document.querySelector(".search input");
+        const searchBtn = document.querySelector(".search button");
+        const weathericon = document.querySelector(".weather-icon");
+
+        async function checkWeather(City_name){
+            const response = await fetch(apiUrl + City_name + `&appid=${apiKey}`);
+
+            if(response.status == 404){
+                document.querySelector(".error").style.display = "block";
+                document.querySelector(".weather").style.display = "none";
+            } else {
+                var data = await response.json();
+
+                document.querySelector(".City_name").innerHTML = data.name;
+                document.querySelector(".condition").innerHTML = data.weather[0].main;
+                document.querySelector(".Temp").innerHTML = Math.round(data.main.temp) + "°C";
+                document.querySelector(".hum").innerHTML = data.main.humidity + "%";
+                document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+    
+                if(data.weather[0].main == "Clouds"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/cloudy.png");
+                }
+                else if(data.weather[0].main == "Clear"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/day_clear.png");
+                }
+                else if(data.weather[0].main == "Tornado"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/tornado.png");
+                }
+                else if(data.weather[0].main == "Squall"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/thunder.png");
+                }
+                else if(data.weather[0].main == "Ash"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/ash.png");
+                }
+                else if(data.weather[0].main == "Dust"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/dust.png");
+                }
+                else if(data.weather[0].main == "Sand"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/sand-storm.png");
+                }
+                else if(data.weather[0].main == "Fog"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/fog.png");
+                }
+                else if(data.weather[0].main == "Haze"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/haze.png");
+                }
+                else if(data.weather[0].main == "Smoke"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/angry_clouds.png");
+                }
+                else if(data.weather[0].main == "Mist"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/mist.png");
+                }
+                else if(data.weather[0].main == "Snow"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/snow.png");
+                }
+                else if(data.weather[0].main == "Rain"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/rain.png");
+                }
+                else if(data.weather[0].main == "Drizzle"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/Drizzle.png");
+                }
+                else if(data.weather[0].main == "Thunderstorm"){
+                    weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/rain_thunder.png");
+                }
+    
+                document.querySelector(".weather").style.display = "block";
+                document.querySelector(".error").style.display = "none";
+            }
+
+        }
+        searchBtn.addEventListener("click", () => {
+            checkWeather(search.value);
+        })
+
+        
+    </script>
+</body>
+</html>
