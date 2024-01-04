@@ -24,11 +24,11 @@
             <div class="detail">
                 <div class="col">
                     <img src="./weather_icons_dovora_interactive/PNG/512/humicon.png">
-                    <p class="hum">50% <br> <span class="label1">Humidity</span></p>
+                    <p> <span class="va" id="hum">50%</span> <br> <span class="label1">Humidity</span></p>
                 </div>
                 <div class="col">
                     <img src="./weather_icons_dovora_interactive/PNG/512/windicon.png">
-                    <p class="wind">50km/h <br> <span class="label1">Wind Speed</span></p>
+                    <p> <span class="va" id="wind">50%</span> <br> <span class="label1">Wind Speed</span></p>
                 </div>
             </div>
         </div>
@@ -54,8 +54,8 @@
                 document.querySelector(".City_name").innerHTML = data.name;
                 document.querySelector(".condition").innerHTML = data.weather[0].main;
                 document.querySelector(".Temp").innerHTML = Math.round(data.main.temp) + "°C";
-                document.querySelector(".hum").innerHTML = data.main.humidity + "%";
-                document.querySelector(".wind").innerHTML = data.wind.speed + "km/h";
+                document.getElementById('hum').innerHTML = data.main.humidity + "%";
+                document.getElementById('wind').innerHTML = data.wind.speed + "km/h";
     
                 if(data.weather[0].main == "Clouds"){
                     weathericon.src = ("./weather_icons_dovora_interactive/PNG/512/cloudy.png");
